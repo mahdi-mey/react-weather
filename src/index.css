@@ -90,3 +90,17 @@ input:focus {
   font-size: 2.4rem;
   font-weight: 700;
 }
+
+.get-weather-btn{
+  padding: 0.7rem 1rem;
+  border-radius: 3px;
+  outline: 1px solid #343434;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover{
+    outline: none;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+}
