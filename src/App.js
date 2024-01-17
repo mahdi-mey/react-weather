@@ -39,12 +39,14 @@ class App extends React.Component {
         super(props)
 
         this.state = {
-            location: ''
+            location: '',
+            isLoading: false
         }
     }
 
     async fetchWeather() {
         try {
+            this.setState({isLoading: true})
             // 1) Getting location (geocoding)
             const geoRes = await fetch(
                 `https://geocoding-api.open-meteo.com/v1/search?name=${this.state.location}`
@@ -67,6 +69,9 @@ class App extends React.Component {
         } catch (err) {
             console.err(err);
         }
+        finally{
+            this.setState({isLoading: false});
+        }
     }
 
 
@@ -78,6 +83,7 @@ class App extends React.Component {
                     <input type="text" placeholder="Search for location" onChange={e => this.setState({ location: e.target.value })} />
                 </div>
                 <button onClick={this.fetchWeather.bind(this)}>Get Weather</button>
+                {this.state.isLoading && <p className="loader">loading</p>}
             </div>
         )
     }
