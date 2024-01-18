@@ -1,4 +1,5 @@
 import React from "react";
+import Weather from "./Weather";
 
 function getWeatherIcon(wmoCode) {
     const icons = new Map([
@@ -84,8 +85,9 @@ class App extends React.Component {
                 <div>
                     <input type="text" placeholder="Search for location" onChange={e => this.setState({ location: e.target.value })} />
                 </div>
-                <button onClick={this.fetchWeather.bind(this)}>Get Weather</button>
+                <button className="get-weather-btn" onClick={this.fetchWeather.bind(this)}>Get Weather</button>
                 {this.state.isLoading && <p className="loader">loading</p>}
+                {this.state.weather.weathercode && <Weather weather={this.state.weather} location={this.state.displayLocation} />}
             </div>
         )
     }
