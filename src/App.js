@@ -10,19 +10,15 @@ function convertToFlag(countryCode) {
 }
 
 class App extends React.Component {
-
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            location: '',
-            isLoading: false,
-            displayLocation: '',
-            weather: {}
-        }
+    
+    state = {
+        location: '',
+        isLoading: false,
+        displayLocation: '',
+        weather: {}
     }
 
-    async fetchWeather() {
+    fetchWeather = async () => {
         try {
             this.setState({isLoading: true})
             // 1) Getting location (geocoding)
@@ -60,7 +56,7 @@ class App extends React.Component {
                 <div>
                     <input type="text" placeholder="Search for location" onChange={e => this.setState({ location: e.target.value })} />
                 </div>
-                <button className="get-weather-btn" onClick={this.fetchWeather.bind(this)}>Get Weather</button>
+                <button className="get-weather-btn" onClick={this.fetchWeather}>Get Weather</button>
                 {this.state.isLoading && <p className="loader">loading</p>}
                 {this.state.weather.weathercode && <Weather weather={this.state.weather} location={this.state.displayLocation} />}
             </div>
