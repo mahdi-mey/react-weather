@@ -66,10 +66,10 @@ class App extends React.Component {
         return (
             <div className="app">
                 <h1>Weather App</h1>
-                <div>
+                <div className="wrapper">
                     <input type="text" placeholder="Search for location" onChange={e => this.setState({ location: e.target.value })} autoFocus />
+                    <button className="get-weather-btn" onClick={this.fetchWeather}>Get Weather</button>
                 </div>
-                <button className="get-weather-btn" onClick={this.fetchWeather}>Get Weather</button>
                 {this.state.isLoading && <p className="loader">loading</p>}
                 {this.state.weather.weathercode && <Weather weather={this.state.weather} location={this.state.displayLocation} />}
             </div>
