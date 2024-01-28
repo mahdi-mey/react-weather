@@ -19,6 +19,8 @@ class App extends React.Component {
     }
 
     fetchWeather = async () => {
+        if(this.state.location.length < 2) return
+
         try {
             this.setState({isLoading: true})
             // 1) Getting location (geocoding)
@@ -41,20 +43,31 @@ class App extends React.Component {
             const weatherData = await weatherRes.json();
             this.setState({weather: weatherData.daily});
         } catch (err) {
-            // console.err(err);
+            // console.error(err);
         }
         finally{
             this.setState({isLoading: false});
         }
     }
 
+    // only runs on the initial render
+    // useEffect []
+    // componentDidMount(){}
+
+
+    // useEffect [location]
+    componentDidUpdate(prevProps, prevState) {
+        if(this.state.location !== prevState.location){
+            this.fetchWeather()
+        }
+    }
 
     render() {
         return (
             <div className="app">
                 <h1>Weather App</h1>
                 <div>
-                    <input type="text" placeholder="Search for location" onChange={e => this.setState({ location: e.target.value })} />
+                    <input type="text" placeholder="Search for location" onChange={e => this.setState({ location: e.target.value })} autoFocus />
                 </div>
                 <button className="get-weather-btn" onClick={this.fetchWeather}>Get Weather</button>
                 {this.state.isLoading && <p className="loader">loading</p>}
