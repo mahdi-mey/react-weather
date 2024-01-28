@@ -52,13 +52,19 @@ class App extends React.Component {
 
     // only runs on the initial render
     // useEffect []
-    // componentDidMount(){}
+    componentDidMount(){
+        this.setState({
+            location: localStorage.getItem('location') || ''
+        })
+    }
 
 
     // useEffect [location]
     componentDidUpdate(prevProps, prevState) {
         if(this.state.location !== prevState.location){
             this.fetchWeather()
+
+            localStorage.setItem('location', this.state.location)
         }
     }
 
@@ -67,7 +73,7 @@ class App extends React.Component {
             <div className="app">
                 <h1>Weather App</h1>
                 <div className="wrapper">
-                    <input type="text" placeholder="Search for location" onChange={e => this.setState({ location: e.target.value })} autoFocus />
+                    <input type="text" placeholder="Search for location" value={this.state.location} onChange={e => this.setState({ location: e.target.value })} autoFocus />
                     <button className="get-weather-btn" onClick={this.fetchWeather}>Get Weather</button>
                 </div>
                 {this.state.isLoading && <p className="loader">loading</p>}
